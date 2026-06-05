@@ -1,9 +1,9 @@
 <script setup lang="ts">
-// import HelloWorld from './components/HelloWorld.vue'
+import "@picocss/pico/css/pico.min.css";
 </script>
 
 <template>
-  <!-- <HelloWorld /> -->
-
-  <div>111</div>
+  <main class="container">
+    <RouterView />
+  </main>
 </template>
