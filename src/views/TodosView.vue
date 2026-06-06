@@ -208,7 +208,6 @@ onMounted(loadTodos);
   font-size: 1.2rem;
 }
 
-.user-card,
 .todos-list {
   padding-bottom: 1px;
 }

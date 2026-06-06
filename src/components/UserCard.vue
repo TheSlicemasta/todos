@@ -11,3 +11,9 @@ const authStore = useAuthStore();
     <p>{{ authStore.user?.phone }}</p>
   </article>
 </template>
+
+<style scoped>
+.user-card {
+  padding-bottom: 1px;
+}
+</style>
