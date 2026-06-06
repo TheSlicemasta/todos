@@ -99,6 +99,7 @@ onMounted(loadTodos);
       v-model:search="search"
       :ids="ids"
       :has-filters="hasFilters"
+      :stat="`${filteredTodos.length} / ${todos.length}`"
       @reset="resetFilter"
     />
 

@@ -14,6 +14,7 @@ const search = defineModel<string>("search", {
 defineProps<{
   ids: number[];
   hasFilters: boolean;
+  stat: string;
 }>();
 
 const emit = defineEmits<{
@@ -23,7 +24,10 @@ const emit = defineEmits<{
 
 <template>
   <article>
-    <h3>Filters</h3>
+    <div class="filter-headline">
+      <h3>Filters</h3>
+      <small>{{ stat }}</small>
+    </div>
 
     <div class="filter-flex">
       <div class="filter-flex--col">
@@ -96,5 +100,15 @@ const emit = defineEmits<{
   @media (min-width: 768px) {
     width: auto;
   }
+}
+
+.filter-headline {
+  position: relative;
+}
+
+.filter-headline small {
+  position: absolute;
+  top: 0.25rem;
+  right: 0;
 }
 </style>
