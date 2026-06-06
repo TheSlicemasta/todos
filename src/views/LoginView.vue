@@ -6,27 +6,36 @@ import { useAuthStore } from "../stores/auth";
 
 const username = ref("");
 const phone = ref("");
-const error = ref("");
+
+const isLoading = ref(false);
+const isError = ref("");
 
 const router = useRouter();
 const authStore = useAuthStore();
 
 const login = async () => {
-  const { data } = await api.get("/users");
+  isLoading.value = true;
 
-  const user = data.find(
-    (u: any) =>
-      u.username.toLowerCase() === username.value.toLowerCase() &&
-      u.phone === phone.value,
-  );
+  try {
+    const { data } = await api.get("/users");
+    const user = data.find(
+      (u: any) =>
+        u.username.toLowerCase() === username.value.toLowerCase() &&
+        u.phone === phone.value,
+    );
 
-  if (!user) {
-    error.value = "Login error";
-    return;
+    if (!user) {
+      isError.value = "Login error";
+      return;
+    }
+
+    authStore.setUser(user);
+    router.push("/todos");
+  } catch {
+    isError.value = "Login error";
+  } finally {
+    isLoading.value = false;
   }
-
-  authStore.setUser(user);
-  router.push("/todos");
 };
 </script>
 
@@ -34,6 +43,8 @@ const login = async () => {
   <div class="page-login">
     <div class="page-login--form">
       <h1>Login</h1>
+
+      <p v-if="isError" class="msg-error">{{ isError }}</p>
 
       <input
         v-model="username"
@@ -43,15 +54,13 @@ const login = async () => {
       <input v-model="phone" placeholder="Phone" />
 
       <div class="grid">
-        <button @click="login">Login</button>
+        <button @click="login" :aria-busy="isLoading">Login</button>
       </div>
-
-      <p v-if="error">{{ error }}</p>
     </div>
   </div>
 </template>
 
-<style>
+<style scoped>
 .page-login {
   display: grid;
   place-items: center;

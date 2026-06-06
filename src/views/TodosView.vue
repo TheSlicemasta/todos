@@ -12,16 +12,16 @@ const logout = () => {
   router.push("/");
 };
 </script>
+
 <template>
   <div class="">
     <nav>
-      <ul>
-        <li><strong>Todo App</strong></li>
-      </ul>
+      <h1 class="brand-text">Todo App</h1>
       <ul>
         <li><a href="#" @click.prevent="logout">Logout</a></li>
       </ul>
     </nav>
+
     <article>
       <h3>{{ authStore.user?.name }}</h3>
       <p>{{ authStore.user?.email }}</p>
@@ -29,3 +29,12 @@ const logout = () => {
     </article>
   </div>
 </template>
+
+<style scoped>
+.brand-text {
+  display: flex;
+  margin: 0;
+  align-items: center;
+  font-size: 1.2rem;
+}
+</style>
