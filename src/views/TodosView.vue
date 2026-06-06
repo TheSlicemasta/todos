@@ -4,6 +4,8 @@ import { api } from "../api";
 import { useAuthStore } from "../stores/auth";
 import { useRouter } from "vue-router";
 
+import UserCard from "../components/UserCard.vue";
+
 const authStore = useAuthStore();
 const router = useRouter();
 
@@ -103,11 +105,7 @@ onMounted(loadTodos);
       </ul>
     </nav>
 
-    <article class="user-card">
-      <h3>{{ authStore.user?.name }}</h3>
-      <p>{{ authStore.user?.email }}</p>
-      <p>{{ authStore.user?.phone }}</p>
-    </article>
+    <UserCard />
 
     <article>
       <h3>Create Todo</h3>
