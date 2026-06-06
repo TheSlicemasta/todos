@@ -6,6 +6,12 @@ h1 {
   text-align: center;
 }
 
+article {
+  @media (min-width: 768px) {
+    padding-bottom: 0;
+  }
+}
+
 .msg-error {
   color: var(--error);
   text-align: center;

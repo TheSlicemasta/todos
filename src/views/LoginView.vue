@@ -14,9 +14,8 @@ const router = useRouter();
 const authStore = useAuthStore();
 
 const login = async () => {
-  isLoading.value = true;
-
   try {
+    isLoading.value = true;
     const { data } = await api.get("/users");
     const user = data.find(
       (u: any) =>
