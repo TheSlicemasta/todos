@@ -4,6 +4,8 @@ import { api } from "../api";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "../stores/auth";
 
+import type { User } from "../types";
+
 const username = ref("");
 const phone = ref("");
 
@@ -18,7 +20,7 @@ const login = async () => {
     isLoading.value = true;
     const { data } = await api.get("/users");
     const user = data.find(
-      (u: any) =>
+      (u: User) =>
         u.username.toLowerCase() === username.value.toLowerCase() &&
         u.phone === phone.value,
     );

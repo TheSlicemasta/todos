@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { api } from "../api";
-import type { Todo } from "../types/todo";
+import type { Todo } from "../types";
 
 const emit = defineEmits<{
   created: [todo: Todo];

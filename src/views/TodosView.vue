@@ -9,7 +9,7 @@ import TodoCreate from "../components/TodoCreate.vue";
 import TodoFilter from "../components/TodoFilter.vue";
 import TodoList from "../components/TodoList.vue";
 
-import type { Todo } from "../types/todo";
+import type { Todo } from "../types";
 
 const authStore = useAuthStore();
 const router = useRouter();
