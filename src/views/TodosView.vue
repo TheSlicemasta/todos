@@ -9,14 +9,14 @@ import TodoCreate from "../components/TodoCreate.vue";
 import TodoFilter from "../components/TodoFilter.vue";
 import TodoList from "../components/TodoList.vue";
 
-import type { Todo } from "../types";
+import { type Todo, Filter, type FilterType } from "../types";
 
 const authStore = useAuthStore();
 const router = useRouter();
 
 const todos = ref<Todo[]>([]);
 const search = ref("");
-const status = ref("all");
+const status = ref<FilterType>(Filter.All);
 const userId = ref("");
 
 const favorites = ref<number[]>(
@@ -43,20 +43,21 @@ const toggleFavorite = (id: number) => {
 
 const resetFilter = () => {
   search.value = "";
-  status.value = "all";
+  status.value = Filter.All;
   userId.value = "";
 };
 
 const hasFilters = computed(
-  () => search.value !== "" || status.value !== "all" || userId.value !== "",
+  () =>
+    search.value !== "" || status.value !== Filter.All || userId.value !== "",
 );
 
 const filteredTodos = computed(() =>
   todos.value.filter((t) => {
     if (
-      (status.value === "completed" && !t.completed) ||
-      (status.value === "uncompleted" && t.completed) ||
-      (status.value === "favorites" && !favorites.value.includes(t.id)) ||
+      (status.value === Filter.Completed && !t.completed) ||
+      (status.value === Filter.Uncompleted && t.completed) ||
+      (status.value === Filter.Favorites && !favorites.value.includes(t.id)) ||
       (userId.value && t.userId !== +userId.value) ||
       (search.value &&
         !t.title.toLowerCase().includes(search.value.toLowerCase()))

@@ -1,6 +1,8 @@
 <script setup lang="ts">
-const status = defineModel<string>("status", {
-  default: "all",
+import { Filter, type FilterType } from "../types";
+
+const status = defineModel<FilterType>("status", {
+  default: Filter.All,
 });
 
 const userId = defineModel<string | number>("userId", {
@@ -32,10 +34,7 @@ const emit = defineEmits<{
     <div class="filter-flex">
       <div class="filter-flex--col">
         <select v-model="status">
-          <option value="all">All</option>
-          <option value="completed">Completed</option>
-          <option value="uncompleted">Uncompleted</option>
-          <option value="favorites">Favorites</option>
+          <option :value="f" v-for="f of Filter" :key="f">{{ f }}</option>
         </select>
       </div>
 
