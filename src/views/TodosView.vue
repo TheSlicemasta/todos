@@ -55,10 +55,13 @@ const hasFilters = computed(
 const filteredTodos = computed(() =>
   todos.value.filter((t) => {
     if (
+      // by status
       (status.value === Filter.Completed && !t.completed) ||
       (status.value === Filter.Uncompleted && t.completed) ||
       (status.value === Filter.Favorites && !favorites.value.includes(t.id)) ||
-      (userId.value && t.userId !== +userId.value) ||
+      // by user
+      (userId.value && t.userId !== Number(userId.value)) ||
+      // by search
       (search.value &&
         !t.title.toLowerCase().includes(search.value.toLowerCase()))
     ) {
