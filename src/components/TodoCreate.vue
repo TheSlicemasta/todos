@@ -22,7 +22,12 @@ const addTodo = async () => {
       completed: false,
     });
 
-    emit("created", data);
+    const responsedData = {
+      ...data,
+      id: Number(new Date().getTime().toString().slice(-5)), // fix, set unique id by timestamp
+    };
+
+    emit("created", responsedData);
 
     newUserId.value = "";
     newTitle.value = "";

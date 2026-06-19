@@ -54,25 +54,51 @@ const hasFilters = computed(
 
 const filteredTodos = computed(() =>
   todos.value.filter((t) => {
-    if (
-      // by status
-      (status.value === Filter.Completed && !t.completed) ||
-      (status.value === Filter.Uncompleted && t.completed) ||
-      (status.value === Filter.Favorites && !favorites.value.includes(t.id)) ||
-      // by user
-      (userId.value && t.userId !== Number(userId.value)) ||
-      // by search
-      (search.value &&
-        !t.title.toLowerCase().includes(search.value.toLowerCase()))
-    ) {
-      return false;
+    let match = true;
+
+    // by user
+    if (userId.value && t.userId !== Number(userId.value)) {
+      match = false;
     }
 
-    return true;
+    // by search
+    if (
+      match &&
+      search.value &&
+      !t.title.toLowerCase().includes(search.value.toLowerCase())
+    ) {
+      match = false;
+    }
+
+    // by status
+    if (match) {
+      switch (status.value) {
+        case Filter.Completed:
+          if (!t.completed) match = false;
+          break;
+        case Filter.Uncompleted:
+          if (t.completed) match = false;
+          break;
+        case Filter.Favorites:
+          if (!favorites.value.includes(t.id)) match = false;
+          break;
+        case Filter.All:
+          // match = true; // do nothind bt default if true
+          break;
+        default:
+          // This enforces exhaustive enum checking
+          const exhaustiveCheck: never = status.value;
+          return exhaustiveCheck;
+      }
+    }
+
+    return match;
   }),
 );
 
-const ids = computed(() => [...new Set(todos.value.map((x) => x.userId))]);
+const ids = computed(() =>
+  [...new Set(todos.value.map((x) => x.userId))].sort((a, b) => a - b),
+); // uique and sorted
 
 const addTodo = (todo: Todo) => {
   todos.value.unshift(todo);
