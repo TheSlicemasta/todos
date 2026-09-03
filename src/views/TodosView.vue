@@ -24,7 +24,7 @@ const favorites = ref<number[]>(
 );
 
 const logout = () => {
-  authStore.logout();
+  authStore.logOut();
   router.push("/");
 };
 
@@ -114,7 +114,7 @@ onMounted(loadTodos);
 
       <ul>
         <li>
-          <a href="#" @click.prevent="logout">Logout</a>
+          <a href="#" @click.prevent="logout">Logout, {{ authStore.user?.username }}</a>
         </li>
       </ul>
     </nav>
