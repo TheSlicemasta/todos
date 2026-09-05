@@ -14,5 +14,7 @@ Learn more about the recommended Project Setup and IDE Support in the [Vue Docs 
 
 Login via data https://jsonplaceholder.typicode.com/users/ 
 
+VITE_API_URL=https://jsonplaceholder.typicode.com
+
 "username": "Bret",
 "phone": "1-770-736-8031 x56442",
